@@ -185,6 +185,10 @@ def main():
 
 			#get mouthroi
 			frame_index_start = int(round(sliding_window_start / opt.audio_sampling_rate * 25))
+			
+			if frame_index_start + opt.num_frames == mouthroi.shape[0] + 1:
+				frame_index_start = frame_index_start -1
+
 			segment_mouthroi = mouthroi[frame_index_start:(frame_index_start + opt.num_frames), :, :]
 			segment_mouthroi = lipreading_preprocessing_func(segment_mouthroi)
 			segment_mouthroi = torch.FloatTensor(segment_mouthroi).unsqueeze(0).unsqueeze(0).cuda()
